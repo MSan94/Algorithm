@@ -2,7 +2,8 @@ package 자료구조.LinkedList;
 
 class SingleLinkedList<T> {
 	public Node<T> head = null;
-
+	
+	// 노드 생성
 	public class Node<T> {
 		T data;
 		Node<T> next = null;
