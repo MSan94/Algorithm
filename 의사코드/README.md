@@ -30,3 +30,21 @@ static void dfs(int start){
   }
 }
 ```
+# BFS
+```
+static void bfs(int start){
+  Queue<Integer> q = new LinkedList<>();
+  visited[start] = true;
+  q.offer(start);
+  while(!q.isEmpty()){
+    int next = q.poll();
+    System.out.print(next + " ");
+    for(int i=1; i<=N; i++){
+      if(arr[next][i] == 1 && visited[i] == false){
+        visited[i] = true;
+        q.offer(i);
+      }
+    }
+  }
+}
+```
