@@ -48,3 +48,24 @@ static void bfs(int start){
   }
 }
 ```
+
+# 이진탐색
+```
+static void binary(int key, int arr[]){
+  int mid;
+  int left = 0;
+  int right = arr.length - 1;
+  while(right >= left){
+    mid = (right + left) / 2;
+    if(key == arr[mid]){
+      System.out.println(mid);
+      break;
+    }
+    
+    if(key < arr[mid]){
+      right = mid - 1;
+    }else{
+      left = mid + 1;
+  }
+}
+```
