@@ -130,3 +130,99 @@ public class 미로탐색 {
 }
 
 ```
+
+
+# Q10026
+```
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Q10026 {
+	static BufferedReader br;
+	static StringBuilder sb = new StringBuilder();
+	static int dx[] = {-1,1,0,0};
+	static int dy[] = {0,0,-1,1};
+	static String graph[][];
+	static boolean visit[][];
+	static boolean visit2[][];
+	static int N;
+	static int result = 0,result2 = 0;
+	public static void main(String[] args) throws Exception{
+		init();
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(visit[i][j] == false) {
+					sol(i,j);
+					result++;
+				}
+			}
+		}
+		
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(graph[i][j].equals("G"))
+					graph[i][j] = "R";
+			}
+		}
+		
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(visit2[i][j] == false) {
+					sol2(i,j);
+					result2++;
+				}
+			}
+		}
+		
+		sb.append(result).append(" ").append(result2);
+		System.out.println(sb.toString());
+	}
+	static void init() throws Exception{
+		br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		graph = new String[N][N];
+		visit = new boolean[N][N];
+		visit2 = new boolean[N][N];
+		for(int i=0; i<N; i++) {
+			String str = br.readLine();
+			for(int j=0; j<N; j++) {
+				graph[i][j] = String.valueOf(str.charAt(j));
+			}
+		}
+	}
+	
+	static void sol(int x, int y) throws Exception{
+		visit[x][y] = true;
+		
+		for(int i=0; i<4; i++) {
+			int nextX = x+dx[i];
+			int nextY = y+dy[i];
+			
+			if(nextX >= 0 && nextY >= 0 && nextX < N && nextY < N) {
+				if(visit[nextX][nextY] == false && graph[nextX][nextY].equals(graph[x][y])) {
+					visit[nextX][nextY] = true;
+					sol(nextX,nextY);
+				}
+			}
+		}
+	}
+	
+	
+	static void sol2(int x , int y) throws Exception{
+		visit2[x][y] = true;
+		
+		for(int i=0; i<4; i++) {
+			int nextX = x+dx[i];
+			int nextY = y+dy[i];
+			
+			if(nextX >= 0 && nextY >= 0 && nextX < N && nextY < N) {
+				if(visit2[nextX][nextY] == false && graph[nextX][nextY].equals(graph[x][y])) {
+					visit2[nextX][nextY] = true;
+					sol2(nextX,nextY);
+				}
+			}
+		}
+	}
+}
+
+```
