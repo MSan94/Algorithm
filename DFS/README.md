@@ -226,3 +226,81 @@ public class Q10026 {
 }
 
 ```
+
+# Q2583
+```
+package BFS;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+// 0 2 4 4  왼아x,y 오위 x,y
+// 1 1 2 5
+// 4 0 6 2
+public class Q2583 {
+	static int map[][];
+	static boolean visit[][];
+	static int dx[] = {-1,1,0,0};
+	static int dy[] = {0,0,-1,1};
+	static int M,N,K;
+	static int land;
+	static int area;
+	static ArrayList<Integer> list = new ArrayList<Integer>();
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		st = new StringTokenizer(br.readLine(), " ");
+		M = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		map = new int[M][N];
+		visit = new boolean[M][N];
+		for(int i=0; i<K; i++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			int x1 = Integer.parseInt(st.nextToken());
+			int y1 = Integer.parseInt(st.nextToken());
+			int x2 = Integer.parseInt(st.nextToken());
+			int y2 = Integer.parseInt(st.nextToken());
+			for(int a = y1; a<y2; a++) {
+				for(int b = x1; b<x2; b++) {
+					map[a][b] = 1;
+				}
+			}
+		}
+		
+		for(int i=0; i<M; i++) {
+			for(int j=0; j<N; j++) {
+				area = 0;
+				if(map[i][j] == 0) {
+					dfs(i,j);
+					land++;
+					list.add(area);
+				}
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(land).append("\n");
+		Collections.sort(list);
+		for(int i=0; i<list.size(); i++) {
+			sb.append(list.get(i)).append(" ");
+		}
+		System.out.println(sb.toString());
+	}
+	static void dfs(int x, int y) {
+		map[x][y] = 1;
+		area++;
+		for(int i=0; i<4; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if(0 <= nx && nx < M && 0 <= ny && ny < N) {
+				if(map[nx][ny] == 0) {
+					dfs(nx,ny);
+				}
+			}
+		}
+	}
+}
+
+```
